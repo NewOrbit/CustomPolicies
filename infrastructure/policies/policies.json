@@ -1,0 +1,89 @@
+{
+  "definitions": [{
+    "properties":{
+      "name": "RequireTag-ResourceGroup-Environment",
+      "displayName": "Require Tag (Resource Group) - Environment",
+      "description": "Requires that all resource groups have an environment tag.",
+      "mode": "All",
+      "metadata": {
+        "category": "Tags"
+      }
+    },
+    "roles": [
+      "Tag Contributor"
+    ],
+    "rules": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+          },
+          {
+            "field": "tags['Environment']",
+            "notIn": "[parameters('allowedValues')]"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    },
+    "parameters": {
+      "allowedValues": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed Values",
+          "description": "The allowed values for this tag."
+        },
+        "allowedValues": [
+          "Live",
+          "Testing",
+          "UAT",
+          "QAT",
+          "Demo",
+          "Experiment"
+        ],
+        "defaultValue": [
+          "Live",
+          "Testing",
+          "UAT",
+          "QAT",
+          "Demo",
+          "Experiment"
+        ]
+      }
+    }
+  },
+  {
+    "properties":{
+      "name": "Require-Cap-ApplicationInsights",
+      "displayName": "Require A Cap On ApplicationInsights",
+      "description": "A cap must be set on application insights so that we do not cause unnecessary costs",
+      "mode": "All",
+      "metadata": {
+        "category": "Tags"
+      }
+    },
+    "roles": [],
+    "rules": {
+        "if": {
+            "allOf": [
+                {
+                    "field": "type",
+                    "equals": "Microsoft.OperationalInsights/workspaces"
+                },
+                {
+                    "field": "Microsoft.OperationalInsights/workspaces/workspaceCapping.dailyQuotaGb",
+                    "equals": "-1"
+                }
+            ]
+        },
+        "then": {
+            "effect": "deny"
+        }
+    },
+    "parameters": {
+    }
+}]
+}
