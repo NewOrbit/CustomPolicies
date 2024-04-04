@@ -18,6 +18,18 @@ param assignment = {
       message: 'Require a log cap on ApplicationInsights'
       policyDefinitionReferenceId: '2456455732842287332'
     }
+    {
+        message: 'Require Scale tag on resource group'
+        policyDefinitionReferenceId: '3059459123121418375'
+    }
+    {
+        message: 'Require Owner tag on resource group'
+        policyDefinitionReferenceId: '5073479656525508926'
+     }
+    {
+        message: 'Multiple Write Locations should be disabled as it causes extra costing'
+        policyDefinitionReferenceId: '17905769077904114754'
+    }
    ]
    assignmentParameters: ''
 }
