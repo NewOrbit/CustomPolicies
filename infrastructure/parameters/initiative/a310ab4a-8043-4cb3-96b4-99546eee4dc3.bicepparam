@@ -15,6 +15,7 @@ param policySet = {
     '/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policyDefinitions/Require Tag (Resource Group) - Scale'
     '/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policyDefinitions/Multiple Write Locations'
     '/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policyDefinitions/Require Tag (Resource Group) - Owner'
+    '/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policyDefinitions/Inherit Owner Tag From Resource Group'
   ]
   description: 'Environment tag is required, Log analytics cap is required, Requires that scalable resources have a scale tag ,Multiple Write Locations'
 }

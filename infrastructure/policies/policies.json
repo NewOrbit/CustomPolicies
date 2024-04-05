@@ -179,11 +179,68 @@
       ],
       "rules": {
         "if": {
-          "field": "tags['Owner']",
-          "exists": "false"
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+            },
+            {
+              "field": "[concat('tags[', 'Owner', ']')]",
+              "exists": "false"
+            }
+          ]
         },
         "then": {
           "effect": "deny"
+        }
+      },
+      "parameters": {
+      }
+    },
+    {
+      "properties": {
+        "name": "Tag-Owner-InheritFromResourceGroup",
+        "displayName": "Inherit Owner Tag From Resource Group",
+        "description": "Inherit the Owner tag from the resource group.",
+        "mode": "Indexed",
+        "metadata": {
+          "category": "Tags"
+        }
+      },
+      "roles": [
+        "Tag Contributor"
+      ],
+      "rules": {
+        "if": {
+          "allOf": [
+            {
+              "field": "[concat('tags[', 'Owner', ']')]",
+              "notEquals": "[resourcegroup().tags['Owner']]"
+            },
+            {
+              "value": "[resourceGroup().tags['Owner']]",
+              "exists": "true"
+            },
+            {
+              "value": "[resourceGroup().tags['Owner']]",
+              "notEquals": ""
+            }
+          ]
+        },
+        "then": {
+          "effect": "modify",
+          "details": {
+            "operations": [
+              {
+                "operation": "addOrReplace",
+                "field": "[concat('tags[', 'Owner', ']')]",
+                "value": "[resourceGroup().tags['Owner']]"
+              }
+            ],
+            "roleDefinitionIds": [
+              "/providers/Microsoft.Authorization/roleDefinitions/4a9ae827-6dc8-4573-8ac7-8239d42aa03f"
+            ]
+          }
         }
       },
       "parameters": {

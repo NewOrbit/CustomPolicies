@@ -32,6 +32,10 @@ param assignment = {
         message: 'Multiple Write Locations should be disabled as it causes extra costing'
         policyDefinitionReferenceId: '17905769077904114754'
     }
+    {
+        message: 'Trying to apply a resource group tag to its child resource'
+        policyDefinitionReferenceId: '11981946151258641763'
+    }
    ]
    assignmentParameters: ''
 }

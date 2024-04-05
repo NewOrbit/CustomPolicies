@@ -14,11 +14,11 @@ param assignment = {
     {
       message: 'Require environment tag on resource group'
       // hard coded for now get this id from the policy definition in azure
-      policyDefinitionReferenceId: '6139001910949832924'
+      policyDefinitionReferenceId: ''
     }
     {
       message: 'Require a log cap on ApplicationInsights'
-      policyDefinitionReferenceId: '2456455732842287332'
+      policyDefinitionReferenceId: ''
     }
     {
       message: 'Require Scale tag on resource group'

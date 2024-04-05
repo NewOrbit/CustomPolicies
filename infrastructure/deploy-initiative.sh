@@ -15,4 +15,5 @@ az account get-access-token -t "$TENANT_ID" -o none || az login -t "$TENANT_ID"
 az account set --subscription "$SUBSCRIPTION_ID"
 
 echo 'Deploying initiative.bicep'
-export DETACHED_RESOURCES=$(az stack sub create --name $SUBSCRIPTION_ID -f bicep/initiative.bicep -l $LOCATION --deny-settings-mode none --parameters parameters/initiative/$SUBSCRIPTION_ID.bicepparam --yes --query detachedResources)
+deploymentName="$SUBSCRIPTION_ID-initiative"
+export DETACHED_RESOURCES=$(az stack sub create --name $deploymentName -f bicep/initiative.bicep -l $LOCATION --deny-settings-mode none --parameters parameters/initiative/$SUBSCRIPTION_ID.bicepparam --yes --query detachedResources)
