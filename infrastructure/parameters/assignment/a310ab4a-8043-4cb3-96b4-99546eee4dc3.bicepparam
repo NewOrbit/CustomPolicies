@@ -1,3 +1,5 @@
+// Jays subscription
+
 using '../../bicep/assignment.bicep'
 
 param location = 'westeurope'

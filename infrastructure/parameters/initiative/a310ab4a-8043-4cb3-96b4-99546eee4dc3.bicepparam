@@ -1,3 +1,4 @@
+// Jays subscription
 using '../../bicep/initiative.bicep'
 
 param location = 'westeurope'

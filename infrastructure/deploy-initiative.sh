@@ -2,7 +2,7 @@
 SUBSCRIPTION_ID=$1
 TENANT_ID=$2
 
-LOCATION=$(az bicep build-params --file parameters/initiative/$SUBSCRIPTION_ID.bicepparam --stdout | jq -r .parametersJson | jq -r .parameters.location.value)
+LOCATION=$(az bicep build-params --file parameters/initiative/"$SUBSCRIPTION_ID.bicepparam" --stdout | jq -r .parametersJson | jq -r .parameters.location.value)
 
 echo $TENANT_ID
 echo $SUBSCRIPTION_ID

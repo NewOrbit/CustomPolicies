@@ -1,4 +1,5 @@
-﻿using '../../bicep/initiative.bicep'
+﻿// Adeptive subscription
+using '../../bicep/initiative.bicep'
 
 param location = 'westeurope'
 
