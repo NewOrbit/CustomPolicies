@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "nNa9prBVPmiWeTBawN+0cJazNeIQwmpBSckfSy6mAHMSMTHEeH9Utvr7OIWYoDdHP4cExenJN2m+FrWa0e95SA==",
+  "success": true,
+  "projectFilePath": "C:\\WorkSpace\\CustomPolicies\\BicepToArmTemplate\\BicepToArmTemplate.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\JayGregory\\.nuget\\packages\\azure.bicep.commandline.win-x64\\0.26.54\\azure.bicep.commandline.win-x64.0.26.54.nupkg.sha512",
+    "C:\\Users\\JayGregory\\.nuget\\packages\\azure.bicep.msbuild\\0.26.54\\azure.bicep.msbuild.0.26.54.nupkg.sha512",
+    "C:\\Users\\JayGregory\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.17\\microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\JayGregory\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.17\\microsoft.windowsdesktop.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\JayGregory\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.17\\microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\JayGregory\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.17\\microsoft.netcore.app.host.win-x64.7.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "westeurope"
+    },
+    "assignment": {
+      "value": {
+        "assignmentName": "Default policies",
+        "assignmentDisplayName": "Default policies",
+        "assignmentDescription": "Assiging default policies to jays subscription",
+        "assignmentPolicyID": "/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policySetDefinitions/New Orbit Required",
+        "assignmentEnforcementMode": "Default",
+        "assignmentMessage": [],
+        "assignmentParameters": ""
+      }
+    }
+  }
+}

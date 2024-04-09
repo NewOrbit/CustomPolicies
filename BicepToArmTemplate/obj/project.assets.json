@@ -1,0 +1,164 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "Azure.Bicep.CommandLine.win-x64/0.26.54": {
+        "type": "package",
+        "build": {
+          "build/Azure.Bicep.CommandLine.win-x64.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Azure.Bicep.CommandLine.win-x64.props": {}
+        }
+      },
+      "Azure.Bicep.MSBuild/0.26.54": {
+        "type": "package",
+        "build": {
+          "build/Azure.Bicep.MSBuild.props": {},
+          "build/Azure.Bicep.MSBuild.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Azure.Bicep.MSBuild.props": {},
+          "buildMultiTargeting/Azure.Bicep.MSBuild.targets": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Azure.Bicep.CommandLine.win-x64/0.26.54": {
+      "sha512": "HoV7bECCGOWW3gx2dGIYh/JVz94U7R57hdgzYLwI20cOj5I82pZOvtxV/RQn+m4kVH5ZaTFbjBqkG7YXv0cOzA==",
+      "type": "package",
+      "path": "azure.bicep.commandline.win-x64/0.26.54",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "azure.bicep.commandline.win-x64.0.26.54.nupkg.sha512",
+        "azure.bicep.commandline.win-x64.nuspec",
+        "bicep-logo-256.png",
+        "build/Azure.Bicep.CommandLine.Common.props",
+        "build/Azure.Bicep.CommandLine.win-x64.props",
+        "buildMultiTargeting/Azure.Bicep.CommandLine.win-x64.props",
+        "tools/bicep.exe",
+        "tools/bicep.xml"
+      ]
+    },
+    "Azure.Bicep.MSBuild/0.26.54": {
+      "sha512": "R46J521BrLLkGjSPwl4sYxY8Y6GLqYmAR9isRhPbgqCBtHfC397fJ/gEqx46ofahSKXj7yN9ZzrHtp1VFaYqAw==",
+      "type": "package",
+      "path": "azure.bicep.msbuild/0.26.54",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "azure.bicep.msbuild.0.26.54.nupkg.sha512",
+        "azure.bicep.msbuild.nuspec",
+        "bicep-logo-256.png",
+        "build/Azure.Bicep.MSBuild.props",
+        "build/Azure.Bicep.MSBuild.targets",
+        "buildMultiTargeting/Azure.Bicep.MSBuild.props",
+        "buildMultiTargeting/Azure.Bicep.MSBuild.targets",
+        "tasks/netstandard2.0/Azure.Bicep.MSBuild.dll",
+        "tasks/netstandard2.0/Azure.Bicep.MSBuild.xml"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "Azure.Bicep.CommandLine.win-x64 >= 0.26.54",
+      "Azure.Bicep.MSBuild >= 0.26.54"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\JayGregory\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\WorkSpace\\CustomPolicies\\BicepToArmTemplate\\BicepToArmTemplate.csproj",
+      "projectName": "BicepToArmTemplate",
+      "projectPath": "C:\\WorkSpace\\CustomPolicies\\BicepToArmTemplate\\BicepToArmTemplate.csproj",
+      "packagesPath": "C:\\Users\\JayGregory\\.nuget\\packages\\",
+      "outputPath": "C:\\WorkSpace\\CustomPolicies\\BicepToArmTemplate\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\JayGregory\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "dependencies": {
+          "Azure.Bicep.CommandLine.win-x64": {
+            "target": "Package",
+            "version": "[0.26.54, )"
+          },
+          "Azure.Bicep.MSBuild": {
+            "target": "Package",
+            "version": "[0.26.54, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
