@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BicepToArmTemplate")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63995331272b1be91fbba0c571990d60fced1b33")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc0f95b1fad659399bfa29cf53cbe55dccdb014d")]
 [assembly: System.Reflection.AssemblyProductAttribute("BicepToArmTemplate")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BicepToArmTemplate")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.26.54.24096",
-      "templateHash": "7600880257977108720"
+      "templateHash": "6449172125850409567"
     }
   },
   "parameters": {
@@ -109,7 +109,7 @@
     {
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2022-04-01",
-      "name": "[format('{0}-{{tagContributer}}', subscriptionResourceId('Microsoft.Authorization/policyAssignments', variables('assignment').assignmentName))]",
+      "name": "[format('{0}-tagContributer', subscriptionResourceId('Microsoft.Authorization/policyAssignments', variables('assignment').assignmentName))]",
       "properties": {
         "principalId": "[reference(subscriptionResourceId('Microsoft.Authorization/policyAssignments', variables('assignment').assignmentName), '2021-06-01', 'full').identity.principalId]",
         "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleIds').tagContributer)]",
