@@ -3,7 +3,7 @@ param subscriptionId string
 
 var location = 'westeurope'
 var policySet = {
-  initiativeName: 'New Orbit Required'
+  initiativeName: 'New Orbit Defaults'
   displayName: 'Policies containing New Orbit recommended defaults'
   category: 'compliance'
   version: '1.0.0'
@@ -23,7 +23,7 @@ var assignment = {
        assignmentDisplayName: 'Default policies'
        assignmentDescription: 'Assiging default policies to jays subscription'
        // hard coding this for now refrence to a initiative should probably be an array
-       assignmentPolicyID: '/subscriptions/a310ab4a-8043-4cb3-96b4-99546eee4dc3/providers/Microsoft.Authorization/policySetDefinitions/New Orbit Required'
+       assignmentPolicyID: '/subscriptions/${subscriptionId}/providers/Microsoft.Authorization/policySetDefinitions/New Orbit Defaults'
        assignmentEnforcementMode: 'Default'
        assignmentMessage:  [
     // todo: need to potentially grab these id's from the initiative above
