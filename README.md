@@ -2,11 +2,10 @@
 
 Moving https://github.com/NewOrbit/Azure.Policies into this new repo which is using bicep to deploy the policies.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2FBicepToArmTemplate%2Finfrastructure%2Fbicepjson%2Fdefualt-policy-assignments.json%3Ftoken%3DGHSAT0AAAAAACCW2DQ33FSXWTJVL4EQVDMAZQVK5DA)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2FBicepToArmTemplate%2Finfrastructure%2Fbicepjson%2Fdefualt-policy-assignments.json%3Ftoken%3DGHSAT0AAAAAACCW2DQ3EIRYMDUJKPQVD256ZQVM33A)
 
 ## Defining a subscription
 A subscription is linked to parameter file using the subscription id, make sure to create these files for the subscription you want to deploy to.
-
 
 ## Deploying Policies
 For deploying custom policy instances to a subscription use the following [script](infrastructure/deploy-custom-policy.sh).
