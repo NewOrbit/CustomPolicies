@@ -13,8 +13,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Bicep Include="**\custom-policy.bicep" OutputFile="$(OutputPath)\%(RecursiveDir)\%(FileName).json" />
-        <Bicep Include="**\initiative.bicep" OutputFile="$(OutputPath)\%(RecursiveDir)\%(FileName).json" />
-        <BicepParam Include="**\a310ab4a-8043-4cb3-96b4-99546eee4dc3.bicepparam" OutputFile="$(OutputPath)\%(RecursiveDir)\%(FileName).parameters.json" />
+        <Bicep Include="**\defualt-policy-assignments.bicep" OutputFile="infrastructure\bicepjson\%(FileName).json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="infrastructure\bicepjson\" />
     </ItemGroup>
 </Project>

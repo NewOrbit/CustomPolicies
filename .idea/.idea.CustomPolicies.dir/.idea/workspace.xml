@@ -8,23 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b18aa0c-ed7e-4741-b737-3159f0a49079" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicep/assignment.bicep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicep/custom-policy.bicep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicep/initiative.bicep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/deploy-assignment.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/deploy-custom-policy.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/deploy-initiative.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/assignment/33b84d52-5ab7-4975-80b4-35f034fcc35d.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/assignment/a310ab4a-8043-4cb3-96b4-99546eee4dc3.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/assignment/ef20f6b2-4254-4cc9-96a2-f75550355cf8.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/initiative/33b84d52-5ab7-4975-80b4-35f034fcc35d.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/initiative/a310ab4a-8043-4cb3-96b4-99546eee4dc3.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/parameters/initiative/ef20f6b2-4254-4cc9-96a2-f75550355cf8.bicepparam" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/policies/policies.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/types/types.bicep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CustomPolicies.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CustomPolicies.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712239722490</updated>
       <workItem from="1712239723736" duration="26193000" />
-      <workItem from="1712666429027" duration="1071000" />
+      <workItem from="1712666429027" duration="2959000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,3 @@
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\infrastructure\bicep\custom-policy.json
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.exe
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.deps.json
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.runtimeconfig.json
@@ -14,6 +13,3 @@ C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\refint\BicepToAr
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.pdb
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.genruntimeconfig.cache
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\ref\BicepToArmTemplate.dll
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\infrastructure\bicep\initiative.json
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\infrastructure\parameters\assignment\a310ab4a-8043-4cb3-96b4-99546eee4dc3.parameters.json
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\infrastructure\parameters\initiative\a310ab4a-8043-4cb3-96b4-99546eee4dc3.parameters.json
