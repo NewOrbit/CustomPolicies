@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b18aa0c-ed7e-4741-b737-3159f0a49079" name="Changes" comment="" />
+    <list default="true" id="8b18aa0c-ed7e-4741-b737-3159f0a49079" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicep/defualt-policy-assignments.bicep" beforeDir="false" afterPath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicep/defualt-policy-assignments.bicep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BicepToArmTemplate/infrastructure/bicepjson/defualt-policy-assignments.json" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
