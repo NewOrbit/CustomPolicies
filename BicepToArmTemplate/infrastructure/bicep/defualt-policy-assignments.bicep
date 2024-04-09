@@ -87,6 +87,7 @@ resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' 
       }]
       policyType: 'Custom'
     }
+    dependsOn: [customPolicies]
 }
 
 resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01' = {
@@ -103,6 +104,7 @@ location: location
    identity: {
           type: 'SystemAssigned'
       }
+      dependsOn: [policySetDef]
 }
 
 var roleIds = {
