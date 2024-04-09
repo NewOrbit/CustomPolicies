@@ -110,7 +110,7 @@ var roleIds = {
 }
 
 resource policyAssignmentContributer 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: '${policyAssignment.id}-tagContributer'
+  name: '${policyAssignment.id}tagContributer'
   properties: {
     principalId: policyAssignment.identity.principalId
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleIds.tagContributer)
