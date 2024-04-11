@@ -1,8 +1,3 @@
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.exe
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.deps.json
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.runtimeconfig.json
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.dll
-C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.pdb
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.GeneratedMSBuildEditorConfig.editorconfig
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.AssemblyInfoInputs.cache
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.AssemblyInfo.cs
@@ -11,5 +6,10 @@ C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTempla
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.dll
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\refint\BicepToArmTemplate.dll
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.pdb
+C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.exe
+C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.deps.json
+C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.runtimeconfig.json
+C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.dll
+C:\WorkSpace\CustomPolicies\BicepToArmTemplate\bin\Debug\net7.0\BicepToArmTemplate.pdb
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\BicepToArmTemplate.genruntimeconfig.cache
 C:\WorkSpace\CustomPolicies\BicepToArmTemplate\obj\Debug\net7.0\ref\BicepToArmTemplate.dll

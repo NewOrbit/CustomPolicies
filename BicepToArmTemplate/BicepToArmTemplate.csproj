@@ -13,10 +13,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Bicep Include="**\defualt-policy-assignments.bicep" OutputFile="infrastructure\bicepjson\%(FileName).json" />
+        <Bicep Include="**\policy-assignments.bicep" OutputFile="infrastructure\bicep-json\%(FileName).json" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="infrastructure\bicepjson\" />
+      <Folder Include="infrastructure\bicep-json\" />
     </ItemGroup>
 </Project>
