@@ -2,7 +2,7 @@
 
 You can use the button below to apply custom policies to your azure subscription. This will deploy the policies to the subscription you select on the Azure Page.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2FBicepToArmTemplate%2Finfrastructure%2Fbicep-json%2Fpolicy-assignments.json%3Ftoken%3DGHSAT0AAAAAACCW2DQ3PMD6QIRTQTWNCBEGZQYBOAA)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2FBicepToArmTemplate%2Finfrastructure%2Fbicep-json%2Fpolicy-assignments.json)
 
 # Tag Policies
 
