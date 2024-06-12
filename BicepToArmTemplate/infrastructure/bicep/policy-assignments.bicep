@@ -1,12 +1,12 @@
 ﻿targetScope = 'subscription' 
 var location = 'westeurope'
 
-@description('Apply - recommended tag policies')
-param applyTagPolicies bool = true
+@description('Apply - Require Tags on resource groups')
+param applyRequireResourceGroupTags bool = true
 @description('Apply - should not have multiple write locations enabled on cosmos db')
-param applyCosmosPolicies bool = true
-@description('Apply - recommended application-insight policies')
-param applyApplicationInsightsPolicies bool = true
+param applyMultiWriteLocations bool = true
+@description('Apply - should have a cap applied to application-insights')
+param applyApplicationInsightsCap bool = true
 
 // create custom policies
 var policies = json(loadTextContent('../policies/policies.json'))
@@ -24,8 +24,8 @@ resource customPolicies 'Microsoft.Authorization/policyDefinitions@2021-06-01' =
 }]
 
 // create custom policy set ( Tag Initiative )
-var tagInitName = 'Tag Policies'
-resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyTagPolicies) {
+var tagInitName = 'Require Tags'
+resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyRequireResourceGroupTags) {
     name: tagInitName
     properties: {
       description: 'Require tags to exist on resource groups and resources'
@@ -53,7 +53,7 @@ resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' 
     dependsOn: [customPolicies]
 }
 
-resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyTagPolicies) {
+resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyRequireResourceGroupTags) {
 location: location
   name: 'Tag Policies'
   properties: {
@@ -73,7 +73,7 @@ var roleIds = {
   tagContributor: '4a9ae827-6dc8-4573-8ac7-8239d42aa03f'
 }
 
-resource policyAssignmentContributor 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(applyTagPolicies) {
+resource policyAssignmentContributor 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(applyRequireResourceGroupTags) {
   name: guid(policyAssignment.id, subscription().subscriptionId, roleIds.tagContributor)
   properties: {
     principalId: policyAssignment.identity.principalId
@@ -83,8 +83,8 @@ resource policyAssignmentContributor 'Microsoft.Authorization/roleAssignments@20
 }
 
 // create custom policy set ( Cosmos Initiative )
-var cosmosInitName = 'Cosmos Policies'
-resource policySetDefCosmos 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyCosmosPolicies) {
+var cosmosInitName = 'Cosmos Multiple Write Locations to be disabled'
+resource policySetDefCosmos 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyMultiWriteLocations) {
     name: cosmosInitName
     properties: {
       description: 'Require Multiple Write Locations to be disabled as it has a cost implication'
@@ -103,7 +103,7 @@ resource policySetDefCosmos 'Microsoft.Authorization/policySetDefinitions@2021-0
     dependsOn: [customPolicies]
 }
 
-resource policyAssignmentCosmos 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyCosmosPolicies) {
+resource policyAssignmentCosmos 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyMultiWriteLocations) {
 location: location
   name: 'Cosmos Multi Write Policy'
   properties: {
@@ -120,8 +120,8 @@ location: location
 }
 
 // create custom policy set ( App Insights Initiative )
-var appInsightsInitName = 'App Insights Policies'
-resource policySetDefAppInsights 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyApplicationInsightsPolicies) {
+var appInsightsInitName = 'Cap Required on App Insights'
+resource policySetDefAppInsights 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyApplicationInsightsCap) {
     name: appInsightsInitName
     properties: {
       description: 'Require a cap on application-insights'
@@ -140,7 +140,7 @@ resource policySetDefAppInsights 'Microsoft.Authorization/policySetDefinitions@2
     dependsOn: [customPolicies]
 }
 
-resource policyAssignmentAppInsights 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyApplicationInsightsPolicies) {
+resource policyAssignmentAppInsights 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyApplicationInsightsCap) {
     location: location
       name: 'Require Cap On App Insights'
       properties: {
