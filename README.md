@@ -28,3 +28,8 @@ These policies will enforce Multi region write is disabled on a cosmos resource.
 # Application Insight Policies
 
 These policies will enforce that application insights has a data cap set.
+
+# Removing Policy sets
+
+To remove any policy sets that have been created via this solution you can click [here](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Definitions),
+making sure you are in the correct tenant where the policies where applied. You can then remove the definitions and assignments that are no longer required.
