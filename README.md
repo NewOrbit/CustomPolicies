@@ -4,6 +4,15 @@ You can use the button below to apply custom policies to your azure subscription
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2FBicepToArmTemplate%2Finfrastructure%2Fbicep-json%2Fpolicy-assignments.json)
 
+**_This project Currently contains Minimal azure custom Policies with the idea of expanding existing and adding new Policy Sets_** 
+
+# Updating Policies
+The File BicepToArmTemplate/infrastructure/bicep-json/policy-assignments.json is used when clicking on the `Deploy to azure ` button. 
+This button will load an MS Azure custom deployment page where you can select the subscription and the policies you wish to apply.
+
+This file is generated so when you want to add new selectable policies within the MS Deployment page, 
+simple modify the `policy-assignments.bicep` and build the project to generate the new `policy-assignments.json` file.  
+
 # Tag Policies
 
 These policies will enforce tagging on resource group creation, and also supply a remediation to apply resource groups tags to children resources.  
