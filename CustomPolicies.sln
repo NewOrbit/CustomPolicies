@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicepToArmTemplate", "BicepToArmTemplate\BicepToArmTemplate.csproj", "{ECBB847C-10C3-A904-D150-5DA945683ABD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECBB847C-10C3-A904-D150-5DA945683ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBB847C-10C3-A904-D150-5DA945683ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBB847C-10C3-A904-D150-5DA945683ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBB847C-10C3-A904-D150-5DA945683ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC279085-7591-4D01-A5C9-4BA6C69BC19C}
+	EndGlobalSection
+EndGlobal
