@@ -1,5 +1,4 @@
 targetScope = 'subscription' 
-var location = 'westeurope'
 
 @description('Apply - Require Tags on resource groups')
 param applyRequireResourceGroupTags bool = true
@@ -54,7 +53,7 @@ resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' 
 }
 
 resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyRequireResourceGroupTags) {
-location: location
+location: deployment().location
   name: 'Tag Policies'
   properties: {
     description: 'Require tags to exist on resource groups and resources'
@@ -104,7 +103,7 @@ resource policySetDefCosmos 'Microsoft.Authorization/policySetDefinitions@2021-0
 }
 
 resource policyAssignmentCosmos 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyMultiWriteLocations) {
-location: location
+location: deployment().location
   name: 'Cosmos Multi Write Policy'
   properties: {
     description: 'Require Multiple Write Locations to be disabled as it has a cost implication'
@@ -141,7 +140,7 @@ resource policySetDefAppInsights 'Microsoft.Authorization/policySetDefinitions@2
 }
 
 resource policyAssignmentAppInsights 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyApplicationInsightsCap) {
-    location: location
+    location: deployment().location
       name: 'Require Cap On App Insights'
       properties: {
         description: 'Require a cap on application-insights'
