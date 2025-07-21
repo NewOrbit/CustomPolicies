@@ -1,4 +1,4 @@
-﻿targetScope = 'subscription' 
+targetScope = 'subscription' 
 var location = 'westeurope'
 
 @description('Apply - Require Tags on resource groups')
@@ -9,7 +9,7 @@ param applyMultiWriteLocations bool = true
 param applyApplicationInsightsCap bool = true
 
 // create custom policies
-var policies = json(loadTextContent('../policies/policies.json'))
+var policies = json(loadTextContent('./policies.json'))
 resource customPolicies 'Microsoft.Authorization/policyDefinitions@2021-06-01' = [for policy in policies.definitions: {
     name: policy.properties.displayName
     properties: {
