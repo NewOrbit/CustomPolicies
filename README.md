@@ -13,8 +13,8 @@ You can use the button below to apply custom policies to your azure subscription
 The File `main.json` is used when clicking on the `Deploy to azure` button.
 This button will load an MS Azure custom deployment page where you can select the subscription and the policies you wish to apply.
 
-This file is generated so when you want to add new selectable policies within the MS Deployment page,
-simple modify the `main.bicep` and build the bicep file (`az bicep build --file main.bicep`) to generate the new `main.json` file and commit them together. 
+All policy definitions were historically defined in the policies.json file with policy assignments defined in the main.bicep file. Going forward we'd like to create both policy definitions and assignments in bicep.
+This file is generated so when you want to add new selectable policies within the MS Deployment page, simple modify the `main.bicep` and build the bicep file (`az bicep build --file main.bicep`) to generate the new `main.json` file and commit them together. 
 
 ## Policies included
 

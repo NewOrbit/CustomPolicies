@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.36.177.2456",
-      "templateHash": "17571064899540516646"
+      "templateHash": "3474019222773180064"
     }
   },
   "parameters": {
@@ -29,11 +29,17 @@
       "metadata": {
         "description": "Apply - should have a cap applied to application-insights"
       }
+    },
+    "applyCosmosDbPartitionNearFullAlert": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Apply - cosmos db partition near full alert"
+      }
     }
   },
   "variables": {
-    "$fxv#0": "{\n  \"definitions\": [\n    {\n      \"properties\": {\n        \"name\": \"RequireTag-ResourceGroup-Environment\",\n        \"displayName\": \"Require Tag (Resource Group) - Environment\",\n        \"description\": \"Requires that all resource groups have an environment tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.Resources/subscriptions/resourceGroups\"\n            },\n            {\n              \"field\": \"tags['Environment']\",\n              \"notIn\": \"[parameters('allowedValues')]\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n        \"allowedValues\": {\n          \"type\": \"Array\",\n          \"metadata\": {\n            \"displayName\": \"Allowed Values\",\n            \"description\": \"The allowed values for this tag.\"\n          },\n          \"allowedValues\": [\n            \"Live\",\n            \"Testing\",\n            \"UAT\",\n            \"QAT\",\n            \"Demo\",\n            \"Experiment\"\n          ],\n          \"defaultValue\": [\n            \"Live\",\n            \"Testing\",\n            \"UAT\",\n            \"QAT\",\n            \"Demo\",\n            \"Experiment\"\n          ]\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Require-Cap-ApplicationInsights\",\n        \"displayName\": \"Require A Cap On ApplicationInsights\",\n        \"description\": \"A cap must be set on application insights so that we do not cause unnecessary costs\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.OperationalInsights/workspaces\"\n            },\n            {\n              \"field\": \"Microsoft.OperationalInsights/workspaces/workspaceCapping.dailyQuotaGb\",\n              \"equals\": \"-1\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"RequireTag-ResourceGroup-Scale\",\n        \"displayName\": \"Require Tag (Resource Group) - Scale\",\n        \"description\": \"Requires that scalable resources have a scale tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"anyOf\": [\n                {\n                  \"field\": \"type\",\n                  \"equals\": \"Microsoft.Web/serverFarms\"\n                }\n              ]\n            },\n            {\n              \"field\": \"tags['Scale']\",\n              \"notIn\": [\n                \"Normal\",\n                \"Temporary\"\n              ]\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Cosmos-Multiple-Write-Locations\",\n        \"displayName\": \"Multiple Write Locations\",\n        \"description\": \"Enabling multiple write locations can cause extra charges make sure a limit is set\",\n        \"mode\": \"Indexed\",\n        \"metadata\": {\n          \"category\": \"Cosmos\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.DocumentDB/databaseAccounts\"\n            },\n            {\n              \"field\": \"Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations\",\n              \"exists\": true\n            },\n            {\n              \"field\": \"Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations\",\n              \"notEquals\": false\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Cosmos-Partition-Full-Alert\",\n        \"displayName\": \"Partition Near Full Alert\",\n        \"description\": \"Be alerted when a partition is near full to avoid data loss\",\n        \"mode\": \"Indexed\",\n        \"metadata\": {\n          \"category\": \"Cosmos\"\n        }\n      },\n      \"parameters\": {\n      },\n      \"roles\": [\n        \"Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"field\": \"type\",\n          \"equals\": \"Microsoft.DocumentDB/databaseAccounts\"\n        }, \n        \"then\": {\n          \"effect\": \"auditIfNotExists\",\n          \"details\": {\n            \"type\": \"microsoft.insights/scheduledqueryrules\",\n            \"name\": \"[concat(field('name'),'-partition-near-full-alert')]\"\n          }\n        }\n      }\n    },\n    {\n      \"properties\":{\n        \"name\": \"Require-ResourceGroup-Owner\",\n        \"displayName\": \"Require Tag (Resource Group) - Owner\",\n        \"description\": \"Requires that all resources have the Owner tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.Resources/subscriptions/resourceGroups\"\n            },\n            {\n              \"field\": \"[concat('tags[', 'Owner', ']')]\",\n              \"exists\": \"false\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Tag-Owner-InheritFromResourceGroup\",\n        \"displayName\": \"Inherit Owner Tag From Resource Group\",\n        \"description\": \"Inherit the Owner tag from the resource group.\",\n        \"mode\": \"Indexed\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"[concat('tags[', 'Owner', ']')]\",\n              \"notEquals\": \"[resourcegroup().tags['Owner']]\"\n            },\n            {\n              \"value\": \"[resourceGroup().tags['Owner']]\",\n              \"exists\": \"true\"\n            },\n            {\n              \"value\": \"[resourceGroup().tags['Owner']]\",\n              \"notEquals\": \"\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"modify\",\n          \"details\": {\n            \"operations\": [\n              {\n                \"operation\": \"addOrReplace\",\n                \"field\": \"[concat('tags[', 'Owner', ']')]\",\n                \"value\": \"[resourceGroup().tags['Owner']]\"\n              }\n            ],\n            \"roleDefinitionIds\": [\n              \"/providers/Microsoft.Authorization/roleDefinitions/4a9ae827-6dc8-4573-8ac7-8239d42aa03f\"\n            ]\n          }\n        }\n      },\n      \"parameters\": {\n      }\n    }\n  ]\n}",
-    "location": "westeurope",
+    "$fxv#0": "{\n  \"definitions\": [\n    {\n      \"properties\": {\n        \"name\": \"RequireTag-ResourceGroup-Environment\",\n        \"displayName\": \"Require Tag (Resource Group) - Environment\",\n        \"description\": \"Requires that all resource groups have an environment tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.Resources/subscriptions/resourceGroups\"\n            },\n            {\n              \"field\": \"tags['Environment']\",\n              \"notIn\": \"[parameters('allowedValues')]\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n        \"allowedValues\": {\n          \"type\": \"Array\",\n          \"metadata\": {\n            \"displayName\": \"Allowed Values\",\n            \"description\": \"The allowed values for this tag.\"\n          },\n          \"allowedValues\": [\n            \"Live\",\n            \"Testing\",\n            \"UAT\",\n            \"QAT\",\n            \"Demo\",\n            \"Experiment\"\n          ],\n          \"defaultValue\": [\n            \"Live\",\n            \"Testing\",\n            \"UAT\",\n            \"QAT\",\n            \"Demo\",\n            \"Experiment\"\n          ]\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Require-Cap-ApplicationInsights\",\n        \"displayName\": \"Require A Cap On ApplicationInsights\",\n        \"description\": \"A cap must be set on application insights so that we do not cause unnecessary costs\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.OperationalInsights/workspaces\"\n            },\n            {\n              \"field\": \"Microsoft.OperationalInsights/workspaces/workspaceCapping.dailyQuotaGb\",\n              \"equals\": \"-1\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"RequireTag-ResourceGroup-Scale\",\n        \"displayName\": \"Require Tag (Resource Group) - Scale\",\n        \"description\": \"Requires that scalable resources have a scale tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"anyOf\": [\n                {\n                  \"field\": \"type\",\n                  \"equals\": \"Microsoft.Web/serverFarms\"\n                }\n              ]\n            },\n            {\n              \"field\": \"tags['Scale']\",\n              \"notIn\": [\n                \"Normal\",\n                \"Temporary\"\n              ]\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Cosmos-Multiple-Write-Locations\",\n        \"displayName\": \"Multiple Write Locations\",\n        \"description\": \"Enabling multiple write locations can cause extra charges make sure a limit is set\",\n        \"mode\": \"Indexed\",\n        \"metadata\": {\n          \"category\": \"Cosmos\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.DocumentDB/databaseAccounts\"\n            },\n            {\n              \"field\": \"Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations\",\n              \"exists\": true\n            },\n            {\n              \"field\": \"Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations\",\n              \"notEquals\": false\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\":{\n        \"name\": \"Require-ResourceGroup-Owner\",\n        \"displayName\": \"Require Tag (Resource Group) - Owner\",\n        \"description\": \"Requires that all resources have the Owner tag.\",\n        \"mode\": \"All\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"type\",\n              \"equals\": \"Microsoft.Resources/subscriptions/resourceGroups\"\n            },\n            {\n              \"field\": \"[concat('tags[', 'Owner', ']')]\",\n              \"exists\": \"false\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"deny\"\n        }\n      },\n      \"parameters\": {\n      }\n    },\n    {\n      \"properties\": {\n        \"name\": \"Tag-Owner-InheritFromResourceGroup\",\n        \"displayName\": \"Inherit Owner Tag From Resource Group\",\n        \"description\": \"Inherit the Owner tag from the resource group.\",\n        \"mode\": \"Indexed\",\n        \"metadata\": {\n          \"category\": \"Tags\"\n        }\n      },\n      \"roles\": [\n        \"Tag Contributor\"\n      ],\n      \"rules\": {\n        \"if\": {\n          \"allOf\": [\n            {\n              \"field\": \"[concat('tags[', 'Owner', ']')]\",\n              \"notEquals\": \"[resourcegroup().tags['Owner']]\"\n            },\n            {\n              \"value\": \"[resourceGroup().tags['Owner']]\",\n              \"exists\": \"true\"\n            },\n            {\n              \"value\": \"[resourceGroup().tags['Owner']]\",\n              \"notEquals\": \"\"\n            }\n          ]\n        },\n        \"then\": {\n          \"effect\": \"modify\",\n          \"details\": {\n            \"operations\": [\n              {\n                \"operation\": \"addOrReplace\",\n                \"field\": \"[concat('tags[', 'Owner', ']')]\",\n                \"value\": \"[resourceGroup().tags['Owner']]\"\n              }\n            ],\n            \"roleDefinitionIds\": [\n              \"/providers/Microsoft.Authorization/roleDefinitions/4a9ae827-6dc8-4573-8ac7-8239d42aa03f\"\n            ]\n          }\n        }\n      },\n      \"parameters\": {\n      }\n    }\n  ]\n}",
     "policies": "[json(variables('$fxv#0'))]",
     "tagInitName": "Require Tags",
     "roleIds": {
@@ -103,7 +109,7 @@
       "type": "Microsoft.Authorization/policyAssignments",
       "apiVersion": "2021-06-01",
       "name": "Tag Policies",
-      "location": "[variables('location')]",
+      "location": "[deployment().location]",
       "properties": {
         "description": "Require tags to exist on resource groups and resources",
         "displayName": "New Orbit recommended tag policies",
@@ -162,7 +168,7 @@
       "type": "Microsoft.Authorization/policyAssignments",
       "apiVersion": "2021-06-01",
       "name": "Cosmos Multi Write Policy",
-      "location": "[variables('location')]",
+      "location": "[deployment().location]",
       "properties": {
         "description": "Require Multiple Write Locations to be disabled as it has a cost implication",
         "displayName": "Require Multiple Write Locations to be disabled",
@@ -207,7 +213,7 @@
       "type": "Microsoft.Authorization/policyAssignments",
       "apiVersion": "2021-06-01",
       "name": "Require Cap On App Insights",
-      "location": "[variables('location')]",
+      "location": "[deployment().location]",
       "properties": {
         "description": "Require a cap on application-insights",
         "displayName": "Require A Cap On ApplicationInsights",
@@ -221,6 +227,70 @@
       "dependsOn": [
         "[subscriptionResourceId('Microsoft.Authorization/policySetDefinitions', variables('appInsightsInitName'))]"
       ]
+    },
+    {
+      "condition": "[parameters('applyCosmosDbPartitionNearFullAlert')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "CosmosPartitionAlertPolicies",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.36.177.2456",
+              "templateHash": "4296719180946391415"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Authorization/policyDefinitions",
+              "apiVersion": "2020-09-01",
+              "name": "Cosmos-Partition-Full-Alert",
+              "properties": {
+                "displayName": "Partition Near Full Alert",
+                "description": "Be alerted when a partition is near full to avoid data loss",
+                "mode": "Indexed",
+                "metadata": {
+                  "category": "Cosmos"
+                },
+                "policyRule": {
+                  "if": {
+                    "field": "type",
+                    "equals": "Microsoft.DocumentDB/databaseAccounts"
+                  },
+                  "then": {
+                    "effect": "auditIfNotExists",
+                    "details": {
+                      "type": "microsoft.insights/scheduledqueryrules",
+                      "name": "[[concat(field('name'),'-partition-near-full-alert')]"
+                    }
+                  }
+                },
+                "parameters": {}
+              }
+            },
+            {
+              "type": "Microsoft.Authorization/policyAssignments",
+              "apiVersion": "2021-06-01",
+              "name": "Cosmos-Partition-Full-Alert",
+              "properties": {
+                "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Cosmos-Partition-Full-Alert')]"
+              },
+              "dependsOn": [
+                "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Cosmos-Partition-Full-Alert')]"
+              ]
+            }
+          ]
+        }
+      }
     }
   ]
 }

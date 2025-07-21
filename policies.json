@@ -165,35 +165,6 @@
       }
     },
     {
-      "properties": {
-        "name": "Cosmos-Partition-Full-Alert",
-        "displayName": "Partition Near Full Alert",
-        "description": "Be alerted when a partition is near full to avoid data loss",
-        "mode": "Indexed",
-        "metadata": {
-          "category": "Cosmos"
-        }
-      },
-      "parameters": {
-      },
-      "roles": [
-        "Contributor"
-      ],
-      "rules": {
-        "if": {
-          "field": "type",
-          "equals": "Microsoft.DocumentDB/databaseAccounts"
-        }, 
-        "then": {
-          "effect": "auditIfNotExists",
-          "details": {
-            "type": "microsoft.insights/scheduledqueryrules",
-            "name": "[concat(field('name'),'-partition-near-full-alert')]"
-          }
-        }
-      }
-    },
-    {
       "properties":{
         "name": "Require-ResourceGroup-Owner",
         "displayName": "Require Tag (Resource Group) - Owner",

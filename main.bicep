@@ -6,6 +6,8 @@ param applyRequireResourceGroupTags bool = true
 param applyMultiWriteLocations bool = true
 @description('Apply - should have a cap applied to application-insights')
 param applyApplicationInsightsCap bool = true
+@description('Apply - cosmos db partition near full alert')
+param applyCosmosDbPartitionNearFullAlert bool = true
 
 // create custom policies
 var policies = json(loadTextContent('./policies.json'))
@@ -155,3 +157,7 @@ resource policyAssignmentAppInsights 'Microsoft.Authorization/policyAssignments@
       dependsOn: [policySetDefAppInsights]
 }
 
+module cosmosPartitionAlert './modules/cosmos.bicep' = if(applyCosmosDbPartitionNearFullAlert) {
+  name: 'CosmosPartitionAlertPolicies'
+  scope: subscription()
+}
