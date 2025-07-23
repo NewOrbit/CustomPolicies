@@ -128,43 +128,6 @@
       }
     },
     {
-      "properties": {
-        "name": "Cosmos-Multiple-Write-Locations",
-        "displayName": "Multiple Write Locations",
-        "description": "Enabling multiple write locations can cause extra charges make sure a limit is set",
-        "mode": "Indexed",
-        "metadata": {
-          "category": "Cosmos"
-        }
-      },
-      "roles": [
-        "Tag Contributor"
-      ],
-      "rules": {
-        "if": {
-          "allOf": [
-            {
-              "field": "type",
-              "equals": "Microsoft.DocumentDB/databaseAccounts"
-            },
-            {
-              "field": "Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations",
-              "exists": true
-            },
-            {
-              "field": "Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations",
-              "notEquals": false
-            }
-          ]
-        },
-        "then": {
-          "effect": "deny"
-        }
-      },
-      "parameters": {
-      }
-    },
-    {
       "properties":{
         "name": "Require-ResourceGroup-Owner",
         "displayName": "Require Tag (Resource Group) - Owner",
