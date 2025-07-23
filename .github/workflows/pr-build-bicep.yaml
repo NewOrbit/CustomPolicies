@@ -1,0 +1,53 @@
+# based on: https://github.com/Azure-Samples/bicep-github-actions/blob/main/.github/workflows/bicep-unit-tests.yml
+
+on:
+  pull_request
+name: Build Bicep on PR
+jobs:
+  build-validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
+
+    - name: Bicep Lint
+      uses: Azure/cli@v1
+      with:
+        inlineScript: az bicep build --file main.bicep
+        
+    # Validate whether a template is valid at subscription scope
+    # - name: Bicep Validate
+    #   uses: Azure/cli@v1
+    #   with:
+    #     inlineScript: |
+    #       az deployment sub validate \
+    #         --name validate-${{ github.run_id }} \
+    #         --template-file main.bicep \
+    #         --location uksouth
+
+    - name: Commit & Push changes
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.event.pull_request.head.ref }}
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    # Perform a security scan of the bicep code using checkov
+    - name: Run Checkov action
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with: 
+        framework: bicep
+
+    # Upload results to GitHub Advanced Security
+    - name: Upload SARIF file
+      if: success() || failure()
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: results.sarif
+        category: checkov
