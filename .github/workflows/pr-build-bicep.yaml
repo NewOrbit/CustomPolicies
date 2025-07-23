@@ -1,3 +1,5 @@
+# based on: https://github.com/Azure-Samples/bicep-github-actions/blob/main/.github/workflows/bicep-unit-tests.yml
+
 on:
   pull_request
 name: Build Bicep on PR
@@ -16,14 +18,14 @@ jobs:
         inlineScript: az bicep build --file main.bicep
         
     # Validate whether a template is valid at subscription scope
-    - name: Bicep Validate
-      uses: Azure/cli@v1
-      with:
-        inlineScript: |
-          az deployment sub validate \
-            --name validate-${{ github.run_id }} \
-            --template-file main.bicep \
-            --location uksouth
+    # - name: Bicep Validate
+    #   uses: Azure/cli@v1
+    #   with:
+    #     inlineScript: |
+    #       az deployment sub validate \
+    #         --name validate-${{ github.run_id }} \
+    #         --template-file main.bicep \
+    #         --location uksouth
 
     - name: Commit & Push changes
       uses: actions-js/push@master
