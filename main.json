@@ -6,25 +6,45 @@
     "_generator": {
       "name": "bicep",
       "version": "0.36.177.2456",
-      "templateHash": "14601715980029173677"
+      "templateHash": "11908674702973134044"
     }
   },
   "definitions": {
-    "enforcementMode": {
+    "EnforcementMode": {
       "type": "string",
       "allowedValues": [
         "AuditOnly",
         "DefinitionsOnly",
         "Enforced"
-      ]
+      ],
+      "metadata": {
+        "description": "Type of enforcement mode for the policies. DefinitionsOnly is the default and does not enforce the policies allowing you to assign the policy yourself, AuditOnly will assign the policies to everything but not enforce them, and Enforced will assign the policies and enable enforcement where the policies support it.",
+        "__bicep_imported_from!": {
+          "sourceTemplate": "types.bicep"
+        }
+      }
     }
   },
   "parameters": {
     "applyTagPolicies": {
-      "$ref": "#/definitions/enforcementMode",
+      "$ref": "#/definitions/EnforcementMode",
       "defaultValue": "DefinitionsOnly",
       "metadata": {
         "description": "Apply resource tag policies"
+      }
+    },
+    "applyCosmosDbPolicies": {
+      "$ref": "#/definitions/EnforcementMode",
+      "defaultValue": "DefinitionsOnly",
+      "metadata": {
+        "description": "Apply CosmosDb policies"
+      }
+    },
+    "applyApplicationInsightsCapPolicy": {
+      "$ref": "#/definitions/EnforcementMode",
+      "defaultValue": "DefinitionsOnly",
+      "metadata": {
+        "description": "Apply - should have a cap applied to application-insights"
       }
     }
   },
@@ -123,6 +143,181 @@
       "dependsOn": [
         "policyAssignment"
       ]
+    },
+    "policyAssignmentRequireAppInsightsCap": {
+      "condition": "[not(equals(parameters('applyApplicationInsightsCapPolicy'), 'DefinitionsOnly'))]",
+      "type": "Microsoft.Authorization/policyAssignments",
+      "apiVersion": "2021-06-01",
+      "name": "Require Cap On App Insights",
+      "location": "[deployment().location]",
+      "properties": {
+        "description": "Require a cap on application-insights",
+        "enforcementMode": "[if(equals(parameters('applyApplicationInsightsCapPolicy'), 'Enforced'), 'Default', 'DoNotEnforce')]",
+        "nonComplianceMessages": [],
+        "policyDefinitionId": "[format('/subscriptions/{0}/providers/Microsoft.Authorization/policyDefinitions/Require A Cap On ApplicationInsights', subscription().subscriptionId)]"
+      },
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "dependsOn": [
+        "cosmosPolicies"
+      ]
+    },
+    "cosmosPolicies": {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "cosmosPolicies",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "applyPolicies": {
+            "value": "[parameters('applyCosmosDbPolicies')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "languageVersion": "2.0",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.36.177.2456",
+              "templateHash": "3606109662424770679"
+            }
+          },
+          "definitions": {
+            "EnforcementMode": {
+              "type": "string",
+              "allowedValues": [
+                "AuditOnly",
+                "DefinitionsOnly",
+                "Enforced"
+              ],
+              "metadata": {
+                "description": "Type of enforcement mode for the policies. DefinitionsOnly is the default and does not enforce the policies allowing you to assign the policy yourself, AuditOnly will assign the policies to everything but not enforce them, and Enforced will assign the policies and enable enforcement where the policies support it.",
+                "__bicep_imported_from!": {
+                  "sourceTemplate": "../types.bicep"
+                }
+              }
+            }
+          },
+          "parameters": {
+            "applyPolicies": {
+              "$ref": "#/definitions/EnforcementMode"
+            }
+          },
+          "resources": {
+            "multipleWriteLocations": {
+              "type": "Microsoft.Authorization/policyDefinitions",
+              "apiVersion": "2025-03-01",
+              "name": "Cosmos-Multiple-Write-Locations",
+              "properties": {
+                "displayName": "Multiple Write Locations",
+                "description": "Enabling multiple write locations can cause extra charges make sure a limit is set",
+                "mode": "Indexed",
+                "metadata": {
+                  "category": "Cosmos"
+                },
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.DocumentDB/databaseAccounts"
+                      },
+                      {
+                        "field": "Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations",
+                        "exists": true
+                      },
+                      {
+                        "field": "Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations",
+                        "notEquals": false
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deny"
+                  }
+                }
+              }
+            },
+            "partitionAlertPolicyDefinition": {
+              "type": "Microsoft.Authorization/policyDefinitions",
+              "apiVersion": "2020-09-01",
+              "name": "Cosmos-Partition-Full-Alert",
+              "properties": {
+                "displayName": "Partition Near Full Alert",
+                "description": "Be alerted when a partition is near full to avoid data loss",
+                "mode": "Indexed",
+                "metadata": {
+                  "category": "Cosmos"
+                },
+                "policyRule": {
+                  "if": {
+                    "field": "type",
+                    "equals": "Microsoft.DocumentDB/databaseAccounts"
+                  },
+                  "then": {
+                    "effect": "auditIfNotExists",
+                    "details": {
+                      "type": "microsoft.insights/scheduledqueryrules",
+                      "name": "[[concat(field('name'),'-partition-near-full-alert')]"
+                    }
+                  }
+                },
+                "parameters": {}
+              }
+            },
+            "policySetDefCosmos": {
+              "type": "Microsoft.Authorization/policySetDefinitions",
+              "apiVersion": "2021-06-01",
+              "name": "NewOrbit CosmosDb Policies",
+              "properties": {
+                "description": "Applies NewOrbit CosmosDb Policies",
+                "displayName": "NewOrbit CosmosDb Policies",
+                "metadata": {
+                  "category": "compliance",
+                  "version": "1.0.0"
+                },
+                "parameters": {},
+                "policyDefinitions": [
+                  {
+                    "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Cosmos-Multiple-Write-Locations')]"
+                  },
+                  {
+                    "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Cosmos-Partition-Full-Alert')]"
+                  }
+                ],
+                "policyType": "Custom"
+              },
+              "dependsOn": [
+                "multipleWriteLocations",
+                "partitionAlertPolicyDefinition"
+              ]
+            },
+            "policyAssignment": {
+              "condition": "[not(equals(parameters('applyPolicies'), 'DefinitionsOnly'))]",
+              "type": "Microsoft.Authorization/policyAssignments",
+              "apiVersion": "2021-06-01",
+              "name": "Cosmos Policies",
+              "location": "[deployment().location]",
+              "properties": {
+                "displayName": "New Orbit recommended CosmosDb policies",
+                "enforcementMode": "[if(equals(parameters('applyPolicies'), 'Enforced'), 'Default', 'DoNotEnforce')]",
+                "nonComplianceMessages": [],
+                "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policySetDefinitions', 'NewOrbit CosmosDb Policies')]"
+              },
+              "dependsOn": [
+                "policySetDefCosmos"
+              ]
+            }
+          }
+        }
+      }
     }
   }
 }
