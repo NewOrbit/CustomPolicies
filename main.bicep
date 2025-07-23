@@ -1,15 +1,13 @@
 targetScope = 'subscription' 
 
-type enforcementMode = 'DefinitionsOnly' | 'AuditOnly' | 'Enforced'
+import { EnforcementMode } from './types.bicep'
 
 @description('Apply resource tag policies')
-param applyTagPolicies enforcementMode = 'DefinitionsOnly'
-// @description('Apply - should not have multiple write locations enabled on cosmos db')
-// param applyMultiWriteLocations bool = true
-// @description('Apply - should have a cap applied to application-insights')
-// param applyApplicationInsightsCap bool = true
-// @description('Apply - cosmos db partition near full alert')
-// param applyCosmosDbPartitionNearFullAlert bool = true
+param applyTagPolicies EnforcementMode = 'DefinitionsOnly'
+@description('Apply CosmosDb policies')
+param applyCosmosDbPolicies EnforcementMode = 'DefinitionsOnly'
+@description('Apply - should have a cap applied to application-insights')
+param applyApplicationInsightsCapPolicy EnforcementMode = 'DefinitionsOnly'
 
 // create custom policies
 var policies = json(loadTextContent('./policies.json'))
@@ -55,8 +53,8 @@ resource policySetDef 'Microsoft.Authorization/policySetDefinitions@2021-06-01' 
 }
 
 resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyTagPolicies != 'DefinitionsOnly') {
-  location: deployment().location
   name: 'Tag Policies'
+  location: deployment().location
   properties: {
     description: 'Require tags to exist on resource groups and resources'
     displayName: 'New Orbit recommended tag policies'
@@ -64,7 +62,7 @@ resource policyAssignment 'Microsoft.Authorization/policyAssignments@2021-06-01'
     nonComplianceMessages: []
     policyDefinitionId: policySetDef.id
   }
-   identity: {
+  identity: {
     type: 'SystemAssigned'
   }
 }
@@ -82,81 +80,25 @@ resource policyAssignmentContributor 'Microsoft.Authorization/roleAssignments@20
   }
 }
 
-// // create custom policy set ( Cosmos Initiative )
-// var cosmosInitName = 'Cosmos Multiple Write Locations to be disabled'
-// resource policySetDefCosmos 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyMultiWriteLocations) {
-//     name: cosmosInitName
-//     properties: {
-//       description: 'Require Multiple Write Locations to be disabled as it has a cost implication'
-//       displayName: 'Cosmos Multi Write Policy'
-//       metadata: {
-//         category: 'compliance'
-//         version: '1.0.0'
-//       }
-//       parameters: {}
-//       policyDefinitions: [{
-//             parameters: {}
-//             policyDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/Multiple Write Locations'
-//       }]
-//       policyType: 'Custom'
-//     }
-//     dependsOn: [customPolicies]
-// }
+resource policyAssignmentRequireAppInsightsCap 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyApplicationInsightsCapPolicy != 'DefinitionsOnly') {
+    location: deployment().location
+      name: 'Require Cap On App Insights'
+      properties: {
+        description: 'Require a cap on application-insights'
+        enforcementMode: applyApplicationInsightsCapPolicy == 'Enforced' ? 'Default' : 'DoNotEnforce'
+        nonComplianceMessages: []
+        policyDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/Require A Cap On ApplicationInsights'
+      }
+       identity: {
+        type: 'SystemAssigned'
+      }
+      dependsOn: [cosmosPolicies]
+}
 
-// resource policyAssignmentCosmos 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyMultiWriteLocations) {
-//   location: deployment().location
-//   name: 'Cosmos Multi Write Policy'
-//   properties: {
-//     description: 'Require Multiple Write Locations to be disabled as it has a cost implication'
-//     displayName: 'Require Multiple Write Locations to be disabled'
-//     enforcementMode: 'Default'
-//     nonComplianceMessages: []
-//     policyDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/policySetDefinitions/${cosmosInitName}'
-//   }
-//    identity: {
-//     type: 'SystemAssigned'
-//   }
-//   dependsOn: [policySetDefCosmos]
-// }
-
-// // create custom policy set ( App Insights Initiative )
-// var appInsightsInitName = 'Cap Required on App Insights'
-// resource policySetDefAppInsights 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = if(applyApplicationInsightsCap) {
-//     name: appInsightsInitName
-//     properties: {
-//       description: 'Require a cap on application-insights'
-//       displayName: 'Require A Cap On ApplicationInsights'
-//       metadata: {
-//         category: 'compliance'
-//         version: '1.0.0'
-//       }
-//       parameters: {}
-//       policyDefinitions: [{
-//             parameters: {}
-//             policyDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/Require A Cap On ApplicationInsights'
-//       }]
-//       policyType: 'Custom'
-//     }
-//     dependsOn: [customPolicies]
-// }
-
-// resource policyAssignmentAppInsights 'Microsoft.Authorization/policyAssignments@2021-06-01' = if(applyApplicationInsightsCap) {
-//     location: deployment().location
-//       name: 'Require Cap On App Insights'
-//       properties: {
-//         description: 'Require a cap on application-insights'
-//         displayName: 'Require A Cap On ApplicationInsights'
-//         enforcementMode: 'Default'
-//         nonComplianceMessages: []
-//         policyDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/policySetDefinitions/${appInsightsInitName}'
-//       }
-//        identity: {
-//         type: 'SystemAssigned'
-//       }
-//       dependsOn: [policySetDefAppInsights]
-// }
-
-// module cosmosPartitionAlert './modules/cosmos.bicep' = if(applyCosmosDbPartitionNearFullAlert) {
-//   name: 'CosmosPartitionAlertPolicies'
-//   scope: subscription()
-// }
+module cosmosPolicies './modules/cosmos.bicep' = {
+  name: 'cosmosPolicies'
+  scope: subscription()
+  params: {
+    applyPolicies: applyCosmosDbPolicies
+  }
+}
