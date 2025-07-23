@@ -34,10 +34,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Run Dependabot SCA scan
-      uses: dependabot/dependabot-script@v1
-      with:
-
     # Perform a security scan of the bicep code using checkov
     - name: Run Checkov action
       id: checkov
