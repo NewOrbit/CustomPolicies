@@ -31,6 +31,7 @@ jobs:
       uses: actions-js/push@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ pull_request.head.ref }}
   scan:
     runs-on: ubuntu-latest
     steps:
