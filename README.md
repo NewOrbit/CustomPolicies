@@ -4,7 +4,7 @@ A repository containing a number of Custom [Policies](https://learn.microsoft.co
 
 You can use the button below to apply custom policies to your azure subscription. This will deploy the policies to the subscription you select on the Azure Page.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Fmain%2main.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FNewOrbit%2FCustomPolicies%2Frefs%2Fheads%2Fmain%2Fmain.json)
 
 **_This project Currently contains Minimal azure custom Policies with the idea of expanding existing and adding new Policy Sets_**
 
