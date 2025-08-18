@@ -7,7 +7,7 @@ jobs:
   build-validate:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
@@ -35,7 +35,7 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     # Perform a security scan of the bicep code using checkov
     - name: Run Checkov action
